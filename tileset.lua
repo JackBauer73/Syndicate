@@ -60,8 +60,8 @@ Tileset.image2.map = {
     {1,0,0,0,0,0,0,0,0,0},
     {0,0,0,0,0,0,0,0,0,0}
 }
-TILE_WIDHT = 64
-TILE_HEIGHT = 48
+TILE_WIDTH = 64
+TILE_HEIGHT = 47
 
 
 
@@ -81,25 +81,25 @@ function Tileset.load()
     largeurTile2 = Tileset.image2.WIDTH
 
     -- nbre de ligne et de colonne des tileset
-    nbreColonneImage1 = math.floor(largeurTile1 / TILE_WIDHT)
+    nbreColonneImage1 = math.floor(largeurTile1 / TILE_WIDTH)
     nbreLigneImage1 = math.floor(hauteurTile1 / TILE_HEIGHT)
-    nbreColonneImage2 = math.floor(largeurTile2 / TILE_WIDHT)
+    nbreColonneImage2 = math.floor(largeurTile2 / TILE_WIDTH)
     nbreLigneImage2 = math.floor(hauteurTile2 / TILE_HEIGHT)
 
     -- chargement des tiles dans le tileset
     local l,c
     local id = 1
-    local coef = 0
+    local coef = 1
     Tileset.TileTexture1[0] = nil
     Tileset.TileTexture2[0] = nil
     for l = 1,nbreLigneImage1 do
         for c = 1,nbreColonneImage1 do
             Tileset.TileTexture1[id] = love.graphics.newQuad (
-                (c-1) * largeurTile1, (l-1) * hauteurTile1 + coef, 
-                largeurTile1, hauteurTile1, TILE_WIDHT, TILE_HEIGHT)
+                (c-1) * TILE_WIDTH, (l-1) * TILE_HEIGHT + coef, 
+                TILE_WIDTH, TILE_HEIGHT, largeurTile1, hauteurTile1)
             id = id + 1
         end
-        coef = coef + 1
+        coef = coef + 2
     end
 end
 
@@ -111,7 +111,9 @@ function Tileset.draw()
     love.graphics.print("Nbre Colonne img2: "..nbreColonneImage2.." Nbre Ligne img2: "..nbreLigneImage2, 10, 150)
     love.graphics.print("Chargement des "..#Tileset.TileTexture1.." images", 10,200)
 
-    love.graphics.draw(image1, Tileset.TileTexture1[10], 10, 300)
+    love.graphics.draw(image1, Tileset.TileTexture1[36], 10, 200-47*4,0,4,4)
+    love.graphics.draw(image1, Tileset.TileTexture1[36], 10, 200,0,4,4)
+
 
 end
 
