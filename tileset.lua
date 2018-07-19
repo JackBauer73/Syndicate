@@ -4,7 +4,7 @@ Tileset.image2 = {}
 Tileset.TileTexture1 = {}
 Tileset.TileTexture2 = {}
 
-Tileset.image1.map ={
+Tileset.map ={
     {0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -22,44 +22,7 @@ Tileset.image1.map ={
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 }
-Tileset.image2.map = {
-    {0,0,0,0,0,0,0,0,0,0},
-    {1,1,1,1,1,1,0,0,0,0},
-    {1,1,1,1,1,0,0,0,0,0},
-    {1,1,1,1,1,0,0,0,0,0},
-    {1,1,1,1,1,1,1,0,0,0},
-    {0,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,0,0,0,0,0,0,0,0},
-    {1,1,0,0,0,0,0,0,0,0},
-    {1,0,0,0,0,0,0,0,0,0},
-    {1,1,0,0,0,0,0,0,0,0},
-    {1,0,0,0,0,0,0,0,0,0},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,0,0,0,0,0,0,0,0},
-    {1,1,1,1,1,1,1,1,1,0},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,0},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,1,1,1,1,1,1,0,0,0},
-    {1,1,1,0,0,0,0,0,0,0},
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0,0,0}
-}
+
 TILE_WIDTH = 64
 TILE_HEIGHT = 47
 
@@ -67,8 +30,8 @@ TILE_HEIGHT = 47
 
 function Tileset.load()
     -- variable et chargement des tileset
-    image1 = love.graphics.newImage("images/terrain_2_screen.png")
-    image2 = love.graphics.newImage("images/terrain_screen.png")
+    image1 = love.graphics.newImage("images/Terrain 2.png")
+    image2 = love.graphics.newImage("images/Terrain 1.png")
 
     -- Variable hauteur et largeur des tileset
     Tileset.image1.WIDTH = image1:getWidth()
@@ -87,17 +50,31 @@ function Tileset.load()
     nbreLigneImage2 = math.floor(hauteurTile2 / TILE_HEIGHT)
 
     -- chargement des tiles dans le tileset
-    local l,c
+    local l,c,w,h
     local id = 1
     local coef = 1
-    Tileset.TileTexture1[0] = nil
-    Tileset.TileTexture2[0] = nil
+    Tileset.TileTexture[0] = nil
+    
     for l = 1,nbreLigneImage1 do
         for c = 1,nbreColonneImage1 do
-            Tileset.TileTexture1[id] = love.graphics.newQuad (
-                (c-1) * TILE_WIDTH, (l-1) * TILE_HEIGHT + coef, 
-                TILE_WIDTH, TILE_HEIGHT, largeurTile1, hauteurTile1)
-            id = id + 1
+                if l > nbreLigneImage1 and c > nbreColonneImage1 then
+                    for w = 1, nbreColonneImage2 do
+                        for h = 1, nbreLigneImage2 do
+                            
+                            
+
+                        Tileset.TileTexture1[id] = love.graphics.newQuad (
+                            (c-1) * TILE_WIDTH, (l-1) * TILE_HEIGHT + coef, 
+                            TILE_WIDTH, TILE_HEIGHT, largeurTile1, hauteurTile1)
+                        id = id + 1
+                        end
+                    end
+                else
+                    Tileset.TileTexture1[id] = love.graphics.newQuad (
+                        (c-1) * TILE_WIDTH, (l-1) * TILE_HEIGHT + coef, 
+                        TILE_WIDTH, TILE_HEIGHT, largeurTile1, hauteurTile1)
+                    id = id + 1
+                end
         end
         coef = coef + 2
     end
